@@ -3,4 +3,3 @@ resources:
   - deployments/
   - services/
   - ingress/
-  - storage/
