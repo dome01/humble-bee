@@ -47,3 +47,8 @@ spec:
 ```
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "ClusterIP"}}'
 ```
+
+## Force update
+```
+kubectl annotate application python-webapp   -n argocd argocd.argoproj.io/refresh=hard --overwrite
+```
