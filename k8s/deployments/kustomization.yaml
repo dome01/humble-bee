@@ -1,0 +1,4 @@
+
+resources:
+  - api1-deployment.yaml
+  - api2-deployment.yaml
