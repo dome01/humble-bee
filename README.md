@@ -52,3 +52,6 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "ClusterIP"}}'
 ```
 kubectl annotate application python-webapp   -n argocd argocd.argoproj.io/refresh=hard --overwrite
 ```
+
+# Configuring monitoring for k3s pods and services on the VM
+## Prometheus + Grafana
