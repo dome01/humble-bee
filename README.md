@@ -55,3 +55,4 @@ kubectl annotate application python-webapp   -n argocd argocd.argoproj.io/refres
 
 # Configuring monitoring for k3s pods and services on the VM
 ## Prometheus + Grafana
+Installation using Helm Chart
