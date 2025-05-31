@@ -6,7 +6,7 @@ app = FastAPI()
 
 @app.get("/", response_class=PlainTextResponse)
 def home():
-    return "Hello from API 2!"
+    return "Hello from ID-Gen!"
 
 @app.post("/ids")
 def create_id():

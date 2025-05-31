@@ -1,20 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: api2-ingress
+  name: idgen-ingress
   namespace: default
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   ingressClassName: traefik
   rules:
-    - host: api2.local
+    - host: idgen.local
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: api2
+                name: idgen
                 port:
                   number: 80

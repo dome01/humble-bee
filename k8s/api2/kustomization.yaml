@@ -1,4 +1,0 @@
-resources:
-  - api2-deployment.yaml
-  - api2-service.yaml
-  - api2-ingress.yaml

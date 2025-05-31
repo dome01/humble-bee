@@ -1,5 +1,4 @@
 
 resources:
-  - api1/
-  - api2/
+  - idgen/
   - argocd/

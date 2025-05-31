@@ -1,0 +1,4 @@
+resources:
+  - idgen-deployment.yaml
+  - idgen-service.yaml
+  - idgen-ingress.yaml
