@@ -18,13 +18,9 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements-test.txt
-      - name: Run tests for API1
+      - name: Run tests for IdGen
         run: |
-          cd api1
-          pytest
-      - name: Run tests for API2
-        run: |
-          cd api2
+          cd idgen-api
           pytest
 
   build:
@@ -47,20 +43,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
     
-      - name: Build and push API1 multi-arch image
+      - name: Build and push IdGen multi-arch image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile.api1
+          file: Dockerfile.idgen
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/${{ github.repository_owner }}/api1:latest
-    
-      - name: Build and push API2 multi-arch image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: Dockerfile.api2
-          push: true
-          platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/${{ github.repository_owner }}/api2:latest
+          tags: ghcr.io/${{ github.repository_owner }}/idgen:latest
