@@ -1,9 +1,14 @@
-from flask import Flask # type: ignore
-app = Flask(__name__)
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+from uuid import uuid4
 
-@app.route("/")
+app = FastAPI()
+
+@app.get("/", response_class=PlainTextResponse)
 def home():
-    return "Hello from API 2!"  
+    return "Hello from API 2!"
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+@app.post("/ids")
+def create_id():
+    new_id = str(uuid4())
+    return {"id": new_id}
