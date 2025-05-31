@@ -14,6 +14,8 @@ curl -sfL https://get.k3s.io | sh -
 - Being pulled base, using ArgoCD would not require the access key to the on-prem VM to be stored in public.
 - The sync of the new config yaml will be done periodically
 
+
+
 # Setting up ArgoCD on VM
 ```
 kubectl create namespace argocd
@@ -51,6 +53,12 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "ClusterIP"}}'
 ## Force update
 ```
 kubectl annotate application python-webapp   -n argocd argocd.argoproj.io/refresh=hard --overwrite
+```
+
+## Get ArgoCD credentials:
+```
+user: admin
+pass: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
 # Configuring monitoring for k3s pods and services on the VM

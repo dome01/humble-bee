@@ -1,5 +1,5 @@
 
 resources:
-  - deployments/
-  - services/
-  - ingress/
+  - api1/
+  - api2/
+  - argocd/
