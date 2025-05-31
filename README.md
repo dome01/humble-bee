@@ -14,6 +14,8 @@ curl -sfL https://get.k3s.io | sh -
 - Being pulled base, using ArgoCD would not require the access key to the on-prem VM to be stored in public.
 - The sync of the new config yaml will be done periodically
 
+<img width="1018" alt="image" src="https://github.com/user-attachments/assets/fb6833a8-ffb1-461a-ad07-2602ab5a7197" />
+
 # Setting up ArgoCD on VM
 ```
 kubectl create namespace argocd
