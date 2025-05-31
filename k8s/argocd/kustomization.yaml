@@ -1,4 +1,3 @@
-
 resources:
   - argocd-ingress.yaml
   - argocd-cmd-params-cm.yaml

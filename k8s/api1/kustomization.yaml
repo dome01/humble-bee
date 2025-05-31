@@ -1,4 +1,4 @@
 resources:
-  - api1-deployement.yaml
+  - api1-deployment.yaml
   - api1-service.yaml
   - api1-ingress.yaml
