@@ -1,0 +1,5 @@
+resources:
+  - feed/
+  - post/
+  - user/
+  - twitter-ingress.yaml
