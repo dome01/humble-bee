@@ -2,3 +2,7 @@
 resources:
   - idgen/
   - argocd/
+  - feed/
+  - post/
+  - user/
+  - twitter-ingress.yaml

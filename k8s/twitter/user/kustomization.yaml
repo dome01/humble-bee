@@ -1,0 +1,3 @@
+resources:
+  - user-api-deployment.yaml
+  - user-api-service.yaml

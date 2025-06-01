@@ -7,9 +7,7 @@ load_dotenv()
 app = FastAPI()
 supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
-router = APIRouter(prefix="/api/v1")
-
-@router.post("/users")
+@app.post("/users")
 def create_user(username: str):
     res = supabase.table("users").insert({"username": username}).execute()
     if not res.data:
@@ -17,7 +15,7 @@ def create_user(username: str):
     return res.data[0]
     
 
-@router.post("/follow")
+@app.post("/follow")
 def follow(follower_username: str, followed_username: str):
     if follower_username == followed_username:
         raise HTTPException(status_code=400, detail="Cannot follow yourself")
@@ -28,5 +26,3 @@ def follow(follower_username: str, followed_username: str):
     if not res.data:
         raise HTTPException(status_code=400, detail="Already following or insertion failed")
     return {"message": "Followed successfully"}
-
-app.include_router(router)

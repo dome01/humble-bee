@@ -1,0 +1,3 @@
+resources:
+  - post-api-deployment.yaml
+  - post-api-service.yaml

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idgen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: idgen
+  template:
+    metadata:
+      labels:
+        app: idgen
+    spec:
+      containers:
+      - name: idgen
+        image: ghcr.io/dome01/idgen:latest
+        ports:
+        - containerPort: 8080

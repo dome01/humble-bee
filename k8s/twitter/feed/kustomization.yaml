@@ -1,0 +1,3 @@
+resources:
+  - feed-api-deployment.yaml
+  - feed-api-service.yaml

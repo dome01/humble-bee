@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feed-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feed-api
+  template:
+    metadata:
+      labels:
+        app: feed-api
+    spec:
+      containers:
+      - name: feed-api
+        image: ghcr.io/dome01/feed_api:latest
+        ports:
+        - containerPort: 8080
