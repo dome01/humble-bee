@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
 from unittest.mock import patch
 
-@patch("main.supabase")
+@patch("twitter.feed_api.main.supabase")
 def test_get_feed(mock_supabase):
-    from main import app
+    from twitter.feed_api.main import app
     client = TestClient(app)
 
     # Follows lookup

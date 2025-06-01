@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
 from unittest.mock import patch
 
-@patch("main.supabase")
+@patch("twitter.post_api.main.supabase")
 def test_create_post(mock_supabase):
-    from main import app
+    from twitter.post_api.main import app
     client = TestClient(app)
     mock_supabase.table.return_value.insert.return_value.execute.return_value.data = [{"username": "bob", "content": "Hello!"}]
     
