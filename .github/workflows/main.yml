@@ -5,7 +5,9 @@ on:
     paths-ignore:
       - 'README.md'
       - 'k8s/**'
-    
+env:
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
 jobs:
   test:
     runs-on: ubuntu-latest
