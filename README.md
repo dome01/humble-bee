@@ -91,7 +91,8 @@ create table posts (
 - Being pulled base, using ArgoCD would not require the access key to the on-prem VM to be stored in public.
 - ArgoCD server is exposed using ingress to be accessed from the localhost
 
-<img width="1018" alt="image" src="https://github.com/user-attachments/assets/fb6833a8-ffb1-461a-ad07-2602ab5a7197" />
+<img width="1546" alt="image" src="https://github.com/user-attachments/assets/39b187ee-10bc-41e1-a7ba-7a6ba3057709" />
+
 
 ## Secrets Management
 
