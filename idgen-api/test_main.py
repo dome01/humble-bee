@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
+from unittest.mock import patch
+from uuid import UUID
 
 client = TestClient(app)
 
@@ -8,9 +10,12 @@ def test_home():
     assert response.status_code == 200
     assert response.text == "Hello from ID-Gen!"
 
-def test_create_id():
+@patch("main.uuid4", return_value=UUID("00000000-0000-0000-0000-000000000000"))
+@patch("main.supabase.table")
+def test_create_id(mock_table, mock_uuid):
+    mock_insert = mock_table.return_value.insert.return_value
+    mock_insert.execute.return_value = {"data": [{"id": str(mock_uuid.return_value)}]}
+    
     response = client.post("/ids")
     assert response.status_code == 200
-    data = response.json()
-    assert "id" in data
-    assert isinstance(data["id"], str)
+    assert response.json()["id"] == "00000000-0000-0000-0000-000000000000"
