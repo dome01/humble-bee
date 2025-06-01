@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'idgen-api/**'
+      - 'idgen_api/**'
       - 'tests/test_idgen.py'
       - '.github/workflows/idgen.yml'
 
@@ -29,7 +29,7 @@ jobs:
 
       - name: Run IdGen Tests
         run: |
-          pytest tests/test_idgen.py
+          PYTHONPATH=. pytest tests/test_idgen.py
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -54,8 +54,8 @@ jobs:
       - name: Build and push IdGen image
         uses: docker/build-push-action@v5
         with:
-          context: ./idgen-api
-          file: ./idgen-api/Dockerfile
+          context: ./idgen_api
+          file: ./idgen_api/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ github.repository_owner }}/idgen:latest
