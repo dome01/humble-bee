@@ -3,4 +3,3 @@ resources:
   - idgen/
   - argocd/
   - twitter/
-  - twitter-ingress.yaml
