@@ -17,3 +17,14 @@ spec:
         image: ghcr.io/dome01/feed_api:latest
         ports:
         - containerPort: 8080
+        env:
+            - name: SUPABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: supabase-secret
+                  key: SUPABASE_URL
+            - name: SUPABASE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: supabase-secret
+                  key: SUPABASE_KEY
