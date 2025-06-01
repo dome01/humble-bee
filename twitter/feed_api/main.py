@@ -7,7 +7,9 @@ load_dotenv()
 app = FastAPI()
 supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
-@app.get("/feed")
+router = APIRouter(prefix="/api/v1")
+
+@router.get("/feed")
 def get_feed(username: str):
     res_follows = supabase.table("follows").select("followed_username").eq("follower_username", username).execute()
     if not res_follows.data:
@@ -17,3 +19,5 @@ def get_feed(username: str):
     if res_posts.data is None:
         raise HTTPException(status_code=404, detail="No posts found")
     return res_posts.data
+
+app.include_router(router)
