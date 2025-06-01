@@ -25,6 +25,8 @@ POST /ids
 This acted as a “hello world” for infrastructure.
 
 # Phase 2 – Twitter-Style Backend (MVP)
+All services follow a consistent REST design with /api/v1/ prefixes and share a single Supabase database.
+
 1. **user-api**
 - Create user
 ```
@@ -55,7 +57,6 @@ GET /api/v1/feed
 - Query Params:
   - username (string) : the user whose feed is requested
 
-All services follow a consistent REST design with /api/v1/ prefixes and share a single Supabase database.
 
 ## Database Schema (Supabase)
 ```sql
