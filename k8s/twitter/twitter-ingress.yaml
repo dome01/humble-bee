@@ -18,6 +18,13 @@ spec:
                 name: user-api
                 port:
                   number: 80
+          - path: /api/v1/follow
+            pathType: Prefix
+            backend:
+              service:
+                name: user-api
+                port:
+                  number: 80
           - path: /api/v1/feed
             pathType: Prefix
             backend:
