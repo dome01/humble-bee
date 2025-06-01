@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: idgen
+  name: post-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: idgen
+      app: post-api
   template:
     metadata:
       labels:
-        app: idgen
+        app: post-api
     spec:
       containers:
-      - name: idgen
-        image: ghcr.io/dome01/idgen:latest
+      - name: post-api
+        image: ghcr.io/dome01/post_api:latest
         ports:
         - containerPort: 8080
