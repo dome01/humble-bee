@@ -1,4 +1,4 @@
-name: CI/CD - Twitter/Feed_API
+name: Twitter/Feed_API Test & Build
 
 on:
   push:
