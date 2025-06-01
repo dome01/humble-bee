@@ -154,9 +154,9 @@ To make Ingress routing work with custom domains like idgen.local or twitter.loc
 <IP-of-the-VM>   twitter.local
 ```
 This setup allows access to services like:
-- https://argocd.local – ArgoCD UI
-- https://idgen.local – ID generator API
-- https://twitter.local/api/v1/... – Twitter API suite
+- ArgoCD UI: https://argocd.local
+- ID generator API: https://idgen.local
+- Twitter API suite: https://twitter.local/api/v1/... 
 
 # Next Steps
 - Monitoring with Prometheus/Grafana
