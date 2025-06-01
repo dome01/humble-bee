@@ -146,5 +146,17 @@ admin
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
+### Domain Setup for Local Development
+To make Ingress routing work with custom domains like idgen.local or twitter.local, we need to update /etc/hosts file on host machine to map these domains to the IP address of the K3s VM:
+```
+<IP-of-the-VM>   argocd.local
+<IP-of-the-VM>   idgen.local
+<IP-of-the-VM>   twitter.local
+```
+This setup allows access to services like:
+- https://argocd.local – ArgoCD UI
+- https://idgen.local – ID generator API
+- https://twitter.local/api/v1/... – Twitter API suite
+
 # Next Steps
 - Monitoring with Prometheus/Grafana
