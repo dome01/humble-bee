@@ -1,32 +1,58 @@
 # humble-bee
 An iterative microservice project demonstrating GitHub Actions CI/CD with ArgoCD in a K3s Kubernetes environment. The repo evolves from a minimal ID generator service into a basic Twitter-style backend.
 
-# Stack
+## Table of Content:
+- [Stack](#stack)
+- [System schema](#system-schema)
+- [Phase 1 - IDGen Service](#phase-1--idgen-service)
+- [Phase 2 – Twitter-Style Backend (MVP)](#phase-2--twitter-style-backend-mvp)
+  - [API Design](#api-design)
+  - [Database Schema (Supabase)](#database-schema-supabase)
+  - [CI/CD with GitHub Actions + ArgoCD](#cicd-with-github-actions--argocd)
+- [Demo & Usage Examples](#demo--usage-examples)
+- [Setup and Troubleshooting](#setup-and-troubleshooting)
+- [Next steps](#next-steps)
+
+## Stack
 - **FastAPI** (REST microservices)
 - **Supabase (PostgreSQL)** for storage
 - **K3s** (lightweight Kubernetes)
 - **ArgoCD** for GitOps-based deployment
 - **GitHub Actions** for CI/CD
 - **Traefik Ingress** for routing
-# System schema
+## System schema
 ![image](https://github.com/user-attachments/assets/15c3c71c-cd99-443b-8a94-1cf9bc498d0a)
 
-# Phase 1 – IDGen Service
+## Phase 1 – IDGen Service
+In the initial phase, I built a simple UUID generator service to establish CI/CD and Ingress patterns.
+
+In-Cluster specifications:
+- Namespace: default
+- Ingress Domain: `https://idgen.local`
 
 A minimal FastAPI service used to:
 - Generate UUIDs
 - Validate the GitHub Actions pipeline
 - Set up ArgoCD sync
 - Test Docker image build, deployment, ingress routing, and metrics
-
+- Exposed Endpoints:
 ```
 POST /ids
 ```
-This acted as a “hello world” for infrastructure.
 
-# Phase 2 – Twitter-Style Backend (MVP)
-All services follow a consistent REST design with /api/v1/ prefixes and share a single Supabase database.
+## Phase 2 – Twitter-Style Backend (MVP)
+The microservice architecture includes stateless services for user creation, following other users, posting content, and fetching a personalized feed. All services follow a consistent REST design with /api/v1/ prefixes and share a single Supabase database.
 
+In-Cluster specifications:
+-	Namespace: twitter
+-	Ingress Domain: `https://twitter.local`
+- Ingress Routes:
+  - /api/v1/users -> user-api
+  - /api/v1/follow -> user-api
+  - /api/v1/posts -> post-api
+  - /api/v1/feed -> feed-api
+
+### API Design
 1. **user-api**
 - Create user
 ```
@@ -58,7 +84,7 @@ GET /api/v1/feed
   - username (string) : the user whose feed is requested
 
 
-## Database Schema (Supabase)
+### Database Schema (Supabase)
 ```sql
 create table users (
   username text primary key
@@ -78,35 +104,40 @@ create table posts (
 ```
 
 
-## CI/CD with GitHub Actions + ArgoCD
+### CI/CD with GitHub Actions + ArgoCD
 
 **GitHub Actions**
+
+Each microservice has its own dedicated workflow file in .github/workflows/ that:
 - Runs tests using pytest
 - Builds and pushes Docker images to GHCR
 - Deploys K8s manifests via ArgoCD sync
+
 
 **ArgoCD**
 - Monitors this repo (k8s/) and auto-syncs on changes
 - Fully declarative GitOps
 - Being pulled base, using ArgoCD would not require the access key to the on-prem VM to be stored in public.
-- ArgoCD server is exposed using ingress to be accessed from the localhost
+- ArgoCD server is exposed using ingress to be accessed from the localhost through the `https://argocd.local` domain
 
 <img width="1546" alt="image" src="https://github.com/user-attachments/assets/39b187ee-10bc-41e1-a7ba-7a6ba3057709" />
 
 
-## Secrets Management
+### Secrets Management
 
 Secrets are passed through GitHub Actions for build context (SUPABASE_URL, SUPABASE_KEY)
 
+## Demo & Usage Examples
+<img width="1264" alt="image" src="https://github.com/user-attachments/assets/77aa282d-c7e3-4385-9cbf-1b65dc51b9c7" />
 
-# Setup and Troubleshooting
-## Install K3s (Kubernetes Lightweight)
+## Setup and Troubleshooting
+### Install K3s (Kubernetes Lightweight)
 The project uses k3s on a Debian VM, installed with the following command:
 ```
 curl -sfL https://get.k3s.io | sh - 
 ```
 
-## Setting up ArgoCD on VM
+### Setting up ArgoCD on VM
 Create the namespace and deploy ArgoCD:
 ```
 kubectl create namespace argocd
@@ -114,7 +145,7 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 ```
-### Bootstrap the ArgoCD Application
+#### Bootstrap the ArgoCD Application
 ArgoCD needs to know what application to track and where our repo is. This is done via a manifest like argocd-app.yaml.
 ```yaml
 # k8s/argocd/argocd-app.yaml
@@ -138,7 +169,7 @@ spec:
       prune: true
 ```
 
-### Get ArgoCD admin credential:
+#### Get ArgoCD admin credential:
 ```
 # Username
 admin
@@ -146,9 +177,6 @@ admin
 # Password
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
-
-### Demo & Usage Examples
-<img width="1264" alt="image" src="https://github.com/user-attachments/assets/77aa282d-c7e3-4385-9cbf-1b65dc51b9c7" />
 
 ### Domain Setup for Local Development
 To make Ingress routing work with custom domains like idgen.local or twitter.local, we need to update /etc/hosts file on host machine to map these domains to the IP address of the K3s VM:
@@ -158,9 +186,9 @@ To make Ingress routing work with custom domains like idgen.local or twitter.loc
 <IP-of-the-VM>   twitter.local
 ```
 This setup allows access to services like:
-- ArgoCD UI: https://argocd.local
-- ID generator API: https://idgen.local
-- Twitter API suite: https://twitter.local/api/v1/... 
+- ArgoCD UI: `https://argocd.local`
+- ID generator API: `https://idgen.local`
+- Twitter API suite: `https://twitter.local/api/v1/...`
 
-# Next Steps
+## Next steps
 - Monitoring with Prometheus/Grafana
