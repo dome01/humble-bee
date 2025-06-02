@@ -3,3 +3,4 @@ resources:
   - post/
   - user/
   - twitter-ingress.yaml
+  - twitter-namespace.yaml
