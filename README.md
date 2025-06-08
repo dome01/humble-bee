@@ -190,5 +190,6 @@ This setup allows access to services like:
 - ID generator API: `https://idgen.local`
 - Twitter API suite: `https://twitter.local/api/v1/...`
 
-## Next steps
-- Monitoring with Prometheus/Grafana
+<img width="1065" alt="image" src="https://github.com/user-attachments/assets/b25b5ed7-7ef9-4408-84fe-42dc6fbe8c98" />
+
+
