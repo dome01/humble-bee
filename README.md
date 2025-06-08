@@ -9,6 +9,7 @@ An iterative microservice project demonstrating GitHub Actions CI/CD with ArgoCD
   - [API Design](#api-design)
   - [Database Schema (Supabase)](#database-schema-supabase)
   - [CI/CD with GitHub Actions + ArgoCD](#cicd-with-github-actions--argocd)
+  - [Observability with Prometheus/Grafana](#observability-with-prometheusgrafana)
 - [Demo & Usage Examples](#demo--usage-examples)
 - [Setup and Troubleshooting](#setup-and-troubleshooting)
 - [Next steps](#next-steps)
@@ -20,6 +21,7 @@ An iterative microservice project demonstrating GitHub Actions CI/CD with ArgoCD
 - **ArgoCD** for GitOps-based deployment
 - **GitHub Actions** for CI/CD
 - **Traefik Ingress** for routing
+- **Prometheus** for observability
 ## System schema
 ![image](https://github.com/user-attachments/assets/15c3c71c-cd99-443b-8a94-1cf9bc498d0a)
 
@@ -130,7 +132,7 @@ Secrets are passed through GitHub Actions for build context (SUPABASE_URL, SUPAB
 ## Demo & Usage Examples
 <img width="1264" alt="image" src="https://github.com/user-attachments/assets/77aa282d-c7e3-4385-9cbf-1b65dc51b9c7" />
 
-### Monitoring with Prometheus/Grafana
+### Observability with Prometheus/Grafana
 Installation using Heml chart. We will also expose Prometheus Expression Browser with ingress
 
 ```
