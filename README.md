@@ -130,6 +130,27 @@ Secrets are passed through GitHub Actions for build context (SUPABASE_URL, SUPAB
 ## Demo & Usage Examples
 <img width="1264" alt="image" src="https://github.com/user-attachments/assets/77aa282d-c7e3-4385-9cbf-1b65dc51b9c7" />
 
+### Monitoring with Prometheus/Grafana
+Installation using Heml chart. We will also expose Prometheus Expression Browser with ingress
+
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install monitoring prometheus-community/kube-prometheus-stack \
+  --namespace monitoring --create-namespace \
+  --set grafana.enabled=false \
+  --set prometheus.ingress.enabled=true \
+  --set prometheus.ingress.ingressClassName=traefik \
+  --set prometheus.ingress.hosts[0]=prometheus.local \
+  --set prometheus.ingress.paths[0]=/ \
+  --set prometheus.ingress.pathType=Prefix \
+  --set prometheus.ingress.annotations."traefik\.ingress\.kubernetes\.io/router\.tls"="true" # Using traefik ingress with https enabled
+```
+
+Accessing the Prometheus Expression Browser in localhost through `https://prometheus.local`
+
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/b25b5ed7-7ef9-4408-84fe-42dc6fbe8c98" />
+
 ## Setup and Troubleshooting
 ### Install K3s (Kubernetes Lightweight)
 The project uses k3s on a Debian VM, installed with the following command:
@@ -184,12 +205,14 @@ To make Ingress routing work with custom domains like idgen.local or twitter.loc
 <IP-of-the-VM>   argocd.local
 <IP-of-the-VM>   idgen.local
 <IP-of-the-VM>   twitter.local
+<IP-of-the-VM>   prometheus.local
 ```
+
 This setup allows access to services like:
 - ArgoCD UI: `https://argocd.local`
 - ID generator API: `https://idgen.local`
 - Twitter API suite: `https://twitter.local/api/v1/...`
+- Prometheus Expression Browser: `https://prometheus.local`
 
-<img width="1065" alt="image" src="https://github.com/user-attachments/assets/b25b5ed7-7ef9-4408-84fe-42dc6fbe8c98" />
 
 
